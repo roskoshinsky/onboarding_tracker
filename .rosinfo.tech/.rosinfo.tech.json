@@ -1,0 +1,24 @@
+{
+    "backup": {
+        "except": [
+            "Thumbs.db",
+            "_MAC_OS",
+            "/.DS_Store",
+            "/.build/",
+            "/.dist/",
+            "/.git/",
+            "/.idea/",
+            "/.npm/",
+            "/.process",
+            "/.rosinfo.tech.backup/",
+            "/.rosinfo.tech.secret",
+            "/.rosinfo.tech.secret.json",
+            "/.vscode/",
+            "/build/",
+            "/dist/",
+            "/node_modules/",
+            "/npm/"
+        ]
+    },
+    "version": "0.0.1"
+}
