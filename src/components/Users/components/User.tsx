@@ -54,7 +54,6 @@ export const User = memo( ( {
         return (
             <UserGridStyled
                 data-testid={ `user${ id }` }
-                // eslint-disable-next-line @typescript-eslint/no-magic-numbers
                 p={ 2 }
                 selected={ isUserSelected }
                 container
@@ -66,8 +65,7 @@ export const User = memo( ( {
                     md={ 3 }
                     sm={ 4 }
                     textAlign="center"
-                    // eslint-disable-next-line @typescript-eslint/no-magic-numbers
-                    width={ USERS_AVATAR_SIZE + USERS_AVATAR_MARGIN * 2 }
+                    width={ USERS_AVATAR_SIZE + USERS_AVATAR_MARGIN }
                     xs={ 12 }
                     item
                 >

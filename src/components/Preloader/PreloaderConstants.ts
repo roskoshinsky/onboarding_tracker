@@ -1,1 +1,1 @@
-export const PRELOADER_TEXT_TRY_AGAIN = "Повторить попытку";
+export const PRELOADER_TEXT_TRY_AGAIN = "Try again";
