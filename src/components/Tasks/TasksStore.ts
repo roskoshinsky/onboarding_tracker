@@ -74,15 +74,13 @@ export const tasksSlice = createSlice( {
 
 } );
 
-export const tasksActions = tasksSlice.actions;
-
-export const tasksLoadAction = (): ThunkActionType => async ( dispatch, getState ) => {
+export const tasksLoad = (): ThunkActionType => async ( dispatch, getState ) => {
     try {
         if ( getState().tasks.isLoading ) {
             return;
         }
-        dispatch( tasksActions.errorReset() );
-        dispatch( tasksActions.loadingSet( true ) );
+        dispatch( tasksSlice.actions.errorReset() );
+        dispatch( tasksSlice.actions.loadingSet( true ) );
         const response = await delayRandom( fetch, TASKS_REST_URL_GET );
         if ( !response.ok ) {
             throw Error( TEXT_NETWORK_ERROR );
@@ -99,30 +97,32 @@ export const tasksLoadAction = (): ThunkActionType => async ( dispatch, getState
             }
             tasks[ task.id ] = task;
         }
-        dispatch( tasksActions.userToTasksHashCreate() );
-        dispatch( tasksActions.tasksSet( tasks ) );
-        dispatch( tasksActions.readySet( true ) );
+        dispatch( tasksSlice.actions.userToTasksHashCreate() );
+        dispatch( tasksSlice.actions.tasksSet( tasks ) );
+        dispatch( tasksSlice.actions.readySet( true ) );
     } catch ( error ) {
         if ( error instanceof Error ) {
-            dispatch( tasksActions.errorSet( error.message ) );
+            dispatch( tasksSlice.actions.errorSet( error.message ) );
         } else {
-            dispatch( tasksActions.errorSet( String( error ) ) );
+            dispatch( tasksSlice.actions.errorSet( String( error ) ) );
         }
     } finally {
-        dispatch( tasksActions.loadingSet( false ) );
+        dispatch( tasksSlice.actions.loadingSet( false ) );
     }
+};
+
+export const tasksActions = {
+    ...tasksSlice.actions,
+    tasksLoad,
 };
 
 export const { reducer } = tasksSlice;
 
-export const tasksSelector = ( state: RootState ) => state.tasks;
-
-export const tasksSelectorError = ( state: RootState ) => state.tasks.error;
-
-export const tasksSelectorHasError = ( state: RootState ) => state.tasks.hasError;
-
-export const tasksSelectorIsLoading = ( state: RootState ) => state.tasks.isLoading;
-
-export const tasksSelectorIsReady = ( state: RootState ) => state.tasks.isReady;
-
-export const tasksSelectorTasks = ( state: RootState ) => state.tasks.tasks;
+export const tasksSelectors = {
+    error    : ( state: RootState ) => state.tasks.error,
+    hasError : ( state: RootState ) => state.tasks.hasError,
+    isLoading: ( state: RootState ) => state.tasks.isLoading,
+    isReady  : ( state: RootState ) => state.tasks.isReady,
+    root     : ( state: RootState ) => state.tasks,
+    tasks    : ( state: RootState ) => state.tasks.tasks,
+};

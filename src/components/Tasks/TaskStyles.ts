@@ -8,10 +8,6 @@ export const TasksStyled = styled( Grid )( {
         backgroundColor: "#f0f0f0",
     },
 
-    "> div > div": {
-        flexWrap: "nowrap",
-    },
-
     "> div > div > div:nth-of-type(2)": {
         alignSelf: "center",
     },

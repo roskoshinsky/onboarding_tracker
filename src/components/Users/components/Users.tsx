@@ -18,11 +18,12 @@ import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import {
     usersActions,
-    usersLoadAction,
-    usersSelectorIsLoading,
-    usersSelectorIsReady,
-    usersSelectorUserIdSelected,
-    usersSelectorUsers,
+    usersSelectors,
+    // usersLoadAction,
+    // usersSelectorIsLoading,
+    // usersSelectorIsReady,
+    // usersSelectorUserIdSelected,
+    // usersSelectorUsers,
 } from "../UsersStore";
 import {
     USERS_TEXT_HEADER,
@@ -34,13 +35,13 @@ import { User } from "./User";
 export const Users = memo( () => {
 
     const dispatch = useDispatch();
-    const isLoading = useSelector( usersSelectorIsLoading );
-    const isReady = useSelector( usersSelectorIsReady );
+    const isLoading = useSelector( usersSelectors.isLoading );
+    const isReady = useSelector( usersSelectors.isReady );
     const location = useLocation();
     const navigate = useNavigate();
-    const userIdSelected = useSelector( usersSelectorUserIdSelected );
-    const users = useSelector( usersSelectorUsers );
-    const usersScope = useSelector( usersSelectorUsers );
+    const userIdSelected = useSelector( usersSelectors.userIdSelected );
+    const users = useSelector( usersSelectors.users );
+    const usersScope = useSelector( usersSelectors.users );
 
     useEffect( () => {
         if ( USERS_URL_REG_EXP.test( location.pathname ) ) {
@@ -73,7 +74,7 @@ export const Users = memo( () => {
     ] );
 
     const usersLoad = useCallback( () => {
-        dispatch( usersLoadAction() );
+        dispatch( usersActions.usersLoad() );
     }, [ dispatch ] );
 
     useEffect( () => {

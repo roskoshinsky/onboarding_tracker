@@ -11,3 +11,11 @@
 ## Launch
 
 * npm i && npm run start
+
+## Tests
+
+* npm i && npm run test
+
+## Build
+
+* npm i && npm run build

@@ -9,8 +9,7 @@ import {
 } from "react-redux";
 import {
     usersActions,
-    usersSelectorUserIdSelected,
-    usersSelectorUsers,
+    usersSelectors,
 } from "../UsersStore";
 import Avatar from "@mui/material/Avatar";
 import Grid from "@mui/material/Grid";
@@ -28,9 +27,9 @@ export const User = memo( ( {
 }: UserProps ) => {
 
     const dispatch = useDispatch();
-    const users = useSelector( usersSelectorUsers );
+    const users = useSelector( usersSelectors.users );
     const user = users?.[ id ];
-    const userIdSelected = useSelector( usersSelectorUserIdSelected );
+    const userIdSelected = useSelector( usersSelectors.userIdSelected );
     const isUserSelected = id === userIdSelected;
 
     const userSelectHandler = useCallback( () => {
@@ -63,14 +62,22 @@ export const User = memo( ( {
             >
                 <Grid
                     alignSelf="center"
+                    lg={ 2 }
+                    md={ 3 }
+                    sm={ 4 }
                     textAlign="center"
                     // eslint-disable-next-line @typescript-eslint/no-magic-numbers
                     width={ USERS_AVATAR_SIZE + USERS_AVATAR_MARGIN * 2 }
+                    xs={ 12 }
                     item
                 >
                     <Avatar { ...stringAvatar( name ) } />
                 </Grid>
                 <Grid
+                    lg={ 10 }
+                    md={ 9 }
+                    sm={ 8 }
+                    xs={ 12 }
                     item
                 >
                     <Typography

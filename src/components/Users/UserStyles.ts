@@ -7,7 +7,6 @@ export const UserGridStyled = styled( Grid )( (
 
     "backgroundColor": selected ? "#cfd7d0" : "",
     "cursor"         : "pointer",
-    "flexWrap"       : "nowrap",
 
     ":hover": {
         backgroundColor: selected ? "#cfd7d0" : "#f0f0f0",

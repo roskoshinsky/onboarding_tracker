@@ -28,6 +28,8 @@ export const theme = createTheme( {
                 root: {
                     fontFamily   : `"Helvetica", "Arial"`,
                     letterSpacing: 1,
+                    overflow     : "hidden",
+                    textOverflow : "ellipsis",
                 },
             },
         },

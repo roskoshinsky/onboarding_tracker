@@ -12,7 +12,7 @@ import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import {
     tasksActions,
-    tasksSelectorTasks,
+    tasksSelectors,
 } from "../TasksStore";
 import { TaskProps } from "../TasksTypes";
 
@@ -21,7 +21,7 @@ export const Task = memo( ( {
 }: TaskProps ) => {
 
     const dispatch = useDispatch();
-    const tasks = useSelector( tasksSelectorTasks );
+    const tasks = useSelector( tasksSelectors.tasks );
     const task = tasks?.[ id ];
 
     const taskCompleteHandler = useCallback( () => {
@@ -51,8 +51,11 @@ export const Task = memo( ( {
             >
                 <Grid
                     alignSelf="center"
+                    md={ 2 }
+                    sm={ 3 }
                     textAlign="center"
                     width={ 40 }
+                    xs={ 12 }
                     item
                 >
                     <Checkbox
@@ -62,6 +65,9 @@ export const Task = memo( ( {
                     />
                 </Grid>
                 <Grid
+                    md={ 10 }
+                    sm={ 9 }
+                    xs={ 12 }
                     item
                 >
                     <Typography

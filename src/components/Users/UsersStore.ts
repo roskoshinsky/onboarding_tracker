@@ -49,15 +49,13 @@ export const usersSlice = createSlice( {
 
 } );
 
-export const usersActions = usersSlice.actions;
-
-export const usersLoadAction = (): ThunkActionType => async ( dispatch, getState ) => {
+export const usersLoad = (): ThunkActionType => async ( dispatch, getState ) => {
     try {
         if ( getState().users.isLoading ) {
             return;
         }
-        dispatch( usersActions.errorReset() );
-        dispatch( usersActions.loadingSet( true ) );
+        dispatch( usersSlice.actions.errorReset() );
+        dispatch( usersSlice.actions.loadingSet( true ) );
         const response = await delayRandom( fetch, USERS_REST_URL_GET );
         if ( !response.ok ) {
             throw Error( TEXT_NETWORK_ERROR );
@@ -74,31 +72,32 @@ export const usersLoadAction = (): ThunkActionType => async ( dispatch, getState
             }
             users[ user.id ] = user;
         }
-        dispatch( usersActions.usersSet( users ) );
-        dispatch( usersActions.readySet( true ) );
+        dispatch( usersSlice.actions.usersSet( users ) );
+        dispatch( usersSlice.actions.readySet( true ) );
     } catch ( error ) {
         if ( error instanceof Error ) {
-            dispatch( usersActions.errorSet( error.message ) );
+            dispatch( usersSlice.actions.errorSet( error.message ) );
         } else {
-            dispatch( usersActions.errorSet( String( error ) ) );
+            dispatch( usersSlice.actions.errorSet( String( error ) ) );
         }
     } finally {
-        dispatch( usersActions.loadingSet( false ) );
+        dispatch( usersSlice.actions.loadingSet( false ) );
     }
+};
+
+export const usersActions = {
+    ...usersSlice.actions,
+    usersLoad,
 };
 
 export const { reducer } = usersSlice;
 
-export const usersSelector = ( state: RootState ) => state.users;
-
-export const usersSelectorError = ( state: RootState ) => state.users.error;
-
-export const usersSelectorHasError = ( state: RootState ) => state.users.hasError;
-
-export const usersSelectorIsLoading = ( state: RootState ) => state.users.isLoading;
-
-export const usersSelectorIsReady = ( state: RootState ) => state.users.isReady;
-
-export const usersSelectorUserIdSelected = ( state: RootState ) => state.users.userIdSelected;
-
-export const usersSelectorUsers = ( state: RootState ) => state.users.users;
+export const usersSelectors = {
+    error         : ( state: RootState ) => state.users.error,
+    hasError      : ( state: RootState ) => state.users.hasError,
+    isLoading     : ( state: RootState ) => state.users.isLoading,
+    isReady       : ( state: RootState ) => state.users.isReady,
+    root          : ( state: RootState ) => state.users,
+    userIdSelected: ( state: RootState ) => state.users.userIdSelected,
+    users         : ( state: RootState ) => state.users.users,
+};

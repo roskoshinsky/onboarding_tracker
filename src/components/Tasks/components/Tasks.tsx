@@ -12,12 +12,10 @@ import {
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
-import { usersSelectorUserIdSelected } from "../../Users/UsersStore";
+import { usersSelectors } from "../../Users/UsersStore";
 import {
-    tasksLoadAction,
-    tasksSelectorIsLoading,
-    tasksSelectorIsReady,
-    tasksSelectorTasks,
+    tasksActions,
+    tasksSelectors,
 } from "../TasksStore";
 import { Task } from "./Task";
 import {
@@ -33,13 +31,13 @@ import {
 export const Tasks = memo( () => {
 
     const dispatch = useDispatch();
-    const isLoading = useSelector( tasksSelectorIsLoading );
-    const isReady = useSelector( tasksSelectorIsReady );
-    const tasks = useSelector( tasksSelectorTasks );
-    const userIdSelected = useSelector( usersSelectorUserIdSelected );
+    const isLoading = useSelector( tasksSelectors.isLoading );
+    const isReady = useSelector( tasksSelectors.isReady );
+    const tasks = useSelector( tasksSelectors.tasks );
+    const userIdSelected = useSelector( usersSelectors.userIdSelected );
 
     const loadTasks = useCallback( () => {
-        dispatch( tasksLoadAction() );
+        dispatch( tasksActions.tasksLoad() );
     }, [ dispatch ] );
 
     useEffect( () => {

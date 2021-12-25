@@ -11,33 +11,29 @@ import Typography from "@mui/material/Typography";
 import { Preloader } from "../Preloader";
 import {
     Users,
-    usersLoadAction,
-    usersSelectorError,
-    usersSelectorHasError,
-    usersSelectorIsLoading,
+    usersActions,
+    usersSelectors,
 } from "../Users";
 import {
     Tasks,
-    tasksLoadAction as loadTasksAction,
-    tasksSelectorError,
-    tasksSelectorHasError,
-    tasksSelectorIsLoading,
+    tasksActions,
+    tasksSelectors,
 } from "../Tasks";
 import { MAIN_TEXT_HEADER } from "./MainConstants";
 
 export const Main = memo( () => {
 
     const dispatch = useDispatch();
-    const tasksError = useSelector( tasksSelectorError );
-    const tasksHasError = useSelector( tasksSelectorHasError );
-    const tasksIsLoading = useSelector( tasksSelectorIsLoading );
-    const usersError = useSelector( usersSelectorError );
-    const usersHasError = useSelector( usersSelectorHasError );
-    const usersIsLoading = useSelector( usersSelectorIsLoading );
+    const tasksError = useSelector( tasksSelectors.error );
+    const tasksHasError = useSelector( tasksSelectors.hasError );
+    const tasksIsLoading = useSelector( tasksSelectors.isLoading );
+    const usersError = useSelector( usersSelectors.error );
+    const usersHasError = useSelector( usersSelectors.hasError );
+    const usersIsLoading = useSelector( usersSelectors.isLoading );
 
     const restart = useCallback( () => {
-        dispatch( usersLoadAction() );
-        dispatch( loadTasksAction() );
+        dispatch( usersActions.usersLoad() );
+        dispatch( tasksActions.tasksLoad() );
     }, [ dispatch ] );
 
     if (
